@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rezo Music home page with immersive video-led sections and playable demo tracks.">
+  <meta name="theme-color" content="#f6efe6">
+  <title>Rezo Music</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/site.css">
+  <script defer src="assets/site.js"></script>
+</head>
+<body data-page="index">
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html" aria-label="Rezo Music home">
+          <img class="brand__mark" src="assets/app-icon.png" alt="" aria-hidden="true">
+          <span class="brand__text">
+            <span class="brand__name" data-i18n-key="common.brand.name">Rezo Music</span>
+            <span class="brand__sub" data-i18n-key="common.brand.subtitle">Premium instrumental music, made to resonate with you.</span>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a class="site-nav__link" aria-current="page" href="index.html" data-i18n-key="common.nav.home">Home</a>
+          <a class="site-nav__link" href="product.html" data-i18n-key="common.nav.product">Product</a>
+          <a class="site-nav__link" href="support.html" data-i18n-key="common.nav.support">Support</a>
+          <a class="site-nav__link" href="privacy.html" data-i18n-key="common.nav.privacy">Privacy</a>
+        </nav>
+
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <span class="lang-toggle__label" data-i18n-key="common.lang.label">Language</span>
+          <button class="lang-toggle__button" type="button" data-lang-option="en" aria-pressed="true">EN</button>
+          <button class="lang-toggle__button" type="button" data-lang-option="zh" aria-pressed="false">中文</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="page home-page" id="content">
+      <section class="home-hero">
+        <div class="home-hero__media" aria-hidden="true">
+          <video class="home-hero__video" autoplay muted playsinline loop preload="auto" poster="assets/video/home_first_screen_poster.jpg" data-home-video>
+            <source src="assets/video/home_first_screen.mp4" type="video/mp4">
+            <source src="assets/video/home_first_screen.mov" type="video/quicktime">
+          </video>
+          <div class="home-hero__scrim"></div>
+        </div>
+
+        <div class="home-hero__inner">
+          <div class="home-hero__copy reveal">
+            <p class="home-hero__eyebrow" data-i18n-key="pages.index.hero.eyebrow">Rezo Music</p>
+            <h1 data-i18n-key="pages.index.hero.title">Music made to resonate with you.</h1>
+            <p class="home-hero__body" data-i18n-key="pages.index.hero.body">Premium instrumental playlists for focus, rest, and your daily rhythm.</p>
+            <div class="home-hero__actions">
+              <a class="button button--primary" href="#demos"><span data-i18n-key="pages.index.hero.primary">Hear the demos</span></a>
+              <a class="button button--secondary" href="product.html"><span data-i18n-key="pages.index.hero.secondary">Open product</span></a>
+            </div>
+            <p class="home-hero__hint" data-i18n-key="pages.index.hero.hint">Scroll down to hear four demo tracks.</p>
+          </div>
+
+          <a class="home-hero__scroll" href="#demos">
+            <span data-i18n-key="pages.index.hero.scroll">Scroll</span>
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="section home-demos" id="demos">
+        <div class="section__inner home-demos__inner">
+          <div class="section-copy home-demos__copy reveal">
+            <p class="eyebrow" data-i18n-key="pages.index.demos.eyebrow">Demos</p>
+            <h2 data-i18n-key="pages.index.demos.title">Music that stays by your side.</h2>
+            <p data-i18n-key="pages.index.demos.body">Music that feels more natural and reassuring the longer you listen. Experience it now with four demo tracks.</p>
+            <p class="home-demos__note" data-i18n-key="pages.index.demos.note">One track at a time. Just the music.</p>
+          </div>
+
+          <div class="demo-player reveal" data-demo-player>
+            <div class="demo-player__status" aria-live="polite">
+              <span class="demo-player__status-label" data-demo-status-label>Demo player</span>
+              <span class="demo-player__status-track" data-demo-status-track>Tap a track to play.</span>
+              <span class="demo-player__status-state" data-demo-status-state>Ready</span>
+            </div>
+            <audio class="demo-player__audio" data-demo-audio preload="none"></audio>
+
+            <button class="demo-track" type="button" data-demo-track data-demo-src="assets/music/coffee_shop.mp3" aria-pressed="false">
+              <span class="demo-track__index">01</span>
+              <span class="demo-track__copy">
+                <strong class="demo-track__title" data-i18n-key="pages.index.demos.track1.title">Coffee Shop</strong>
+                <span class="demo-track__body" data-i18n-key="pages.index.demos.track1.body">Warm, close, and easy to keep on.</span>
+              </span>
+              <span class="demo-track__meta">
+                <span class="demo-track__duration">2:53</span>
+                <span class="demo-track__icon" aria-hidden="true"></span>
+              </span>
+              <span class="demo-track__progress" aria-hidden="true"><span></span></span>
+            </button>
+
+            <button class="demo-track" type="button" data-demo-track data-demo-src="assets/music/fingerstyle_guitar.mp3" aria-pressed="false">
+              <span class="demo-track__index">02</span>
+              <span class="demo-track__copy">
+                <strong class="demo-track__title" data-i18n-key="pages.index.demos.track2.title">Fingerstyle Guitar</strong>
+                <span class="demo-track__body" data-i18n-key="pages.index.demos.track2.body">Gentle picking for quiet focus.</span>
+              </span>
+              <span class="demo-track__meta">
+                <span class="demo-track__duration">3:41</span>
+                <span class="demo-track__icon" aria-hidden="true"></span>
+              </span>
+              <span class="demo-track__progress" aria-hidden="true"><span></span></span>
+            </button>
+
+            <button class="demo-track" type="button" data-demo-track data-demo-src="assets/music/strings_quartet.mp3" aria-pressed="false">
+              <span class="demo-track__index">03</span>
+              <span class="demo-track__copy">
+                <strong class="demo-track__title" data-i18n-key="pages.index.demos.track3.title">String Quartet</strong>
+                <span class="demo-track__body" data-i18n-key="pages.index.demos.track3.body">Spacious and elegant, with a softer edge.</span>
+              </span>
+              <span class="demo-track__meta">
+                <span class="demo-track__duration">5:32</span>
+                <span class="demo-track__icon" aria-hidden="true"></span>
+              </span>
+              <span class="demo-track__progress" aria-hidden="true"><span></span></span>
+            </button>
+
+            <button class="demo-track" type="button" data-demo-track data-demo-src="assets/music/study_beats.mp3" aria-pressed="false">
+              <span class="demo-track__index">04</span>
+              <span class="demo-track__copy">
+                <strong class="demo-track__title" data-i18n-key="pages.index.demos.track4.title">Study Beats</strong>
+                <span class="demo-track__body" data-i18n-key="pages.index.demos.track4.body">Soft rhythm that keeps the pace steady.</span>
+              </span>
+              <span class="demo-track__meta">
+                <span class="demo-track__duration">1:48</span>
+                <span class="demo-track__icon" aria-hidden="true"></span>
+              </span>
+              <span class="demo-track__progress" aria-hidden="true"><span></span></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="home-mission" id="mission">
+        <div class="home-mission__media" aria-hidden="true">
+          <video class="home-mission__video" autoplay muted playsinline loop preload="metadata" poster="assets/video/home_second_screen_poster.jpg" data-home-video>
+            <source src="assets/video/home_second_screen.mp4" type="video/mp4">
+            <source src="assets/video/home_second_screen.mov" type="video/quicktime">
+          </video>
+          <div class="home-mission__scrim"></div>
+        </div>
+
+        <div class="home-mission__inner">
+          <div class="home-mission__copy reveal">
+            <p class="eyebrow" data-i18n-key="pages.index.mission.eyebrow">Mission</p>
+            <h2 data-i18n-key="pages.index.mission.title">Music that supports your state.</h2>
+            <p class="home-mission__body" data-i18n-key="pages.index.mission.body">Rezo Music is built to help music support the state you are already in, rather than constantly pulling you away from it.</p>
+            <div class="home-mission__tags" aria-label="Mission keywords">
+              <span class="home-mission__tag" data-i18n-key="pages.index.mission.tag1">Focus</span>
+              <span class="home-mission__tag" data-i18n-key="pages.index.mission.tag2">Rest</span>
+              <span class="home-mission__tag" data-i18n-key="pages.index.mission.tag3">Everyday</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section home-fit" id="fits">
+        <div class="section__inner home-fit__inner">
+          <div class="section-copy home-fit__copy reveal">
+            <p class="eyebrow" data-i18n-key="pages.index.fit.eyebrow">Where it fits</p>
+            <h2 data-i18n-key="pages.index.fit.title">Music for the long run.</h2>
+            <p data-i18n-key="pages.index.fit.body">From early mornings to late nights, find music that truly belongs in your everyday life.</p>
+          </div>
+
+          <div class="fit-list reveal">
+            <div class="fit-row">
+              <span class="fit-row__index">01</span>
+              <div class="fit-row__copy">
+                <strong class="fit-row__title" data-i18n-key="pages.index.fit.point1.title">Study and reading</strong>
+                <span class="fit-row__body" data-i18n-key="pages.index.fit.point1.body">Keep attention steady while you work through a page or lesson.</span>
+              </div>
+            </div>
+
+            <div class="fit-row">
+              <span class="fit-row__index">02</span>
+              <div class="fit-row__copy">
+                <strong class="fit-row__title" data-i18n-key="pages.index.fit.point2.title">Work and creation</strong>
+                <span class="fit-row__body" data-i18n-key="pages.index.fit.point2.body">Keep the room quiet while you do the deep work.</span>
+              </div>
+            </div>
+
+            <div class="fit-row">
+              <span class="fit-row__index">03</span>
+              <div class="fit-row__copy">
+                <strong class="fit-row__title" data-i18n-key="pages.index.fit.point3.title">Rest and sleep</strong>
+                <span class="fit-row__body" data-i18n-key="pages.index.fit.point3.body">Ease into a slower pace when the day winds down.</span>
+              </div>
+            </div>
+
+            <div class="fit-row">
+              <span class="fit-row__index">04</span>
+              <div class="fit-row__copy">
+                <strong class="fit-row__title" data-i18n-key="pages.index.fit.point4.title">Travel and daily life</strong>
+                <span class="fit-row__body" data-i18n-key="pages.index.fit.point4.body">Stay in the background while life keeps moving.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer__inner">
+          <div class="footer__top">
+            <div class="footer__meta">
+            <span data-i18n-key="common.footer.cta">Need help or privacy details? Support and privacy are right here.</span>
+            <span data-i18n-key="common.brand.name">Rezo Music</span>
+          </div>
+          <div class="footer__actions">
+            <a class="footer__link" href="product.html" data-i18n-key="common.nav.product">Product</a>
+            <a class="footer__link" href="support.html" data-i18n-key="common.nav.support">Support</a>
+            <a class="footer__link" href="privacy.html" data-i18n-key="common.nav.privacy">Privacy</a>
+          </div>
+        </div>
+        <div class="footer__right">
+          <span data-current-year>2026</span>
+          <span aria-hidden="true">·</span>
+          <span data-i18n-key="common.footer.rights">© Rezo Music</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
