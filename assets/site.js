@@ -10,7 +10,8 @@
         home: '首页',
         product: '产品',
         support: '支持',
-        privacy: '隐私'
+        privacy: '隐私',
+        menu: '菜单'
       },
       lang: {
         label: '语言',
@@ -36,10 +37,14 @@
           eyebrow: '知音纯音乐',
           title: '高品质陪伴，做你的知音。',
           body: '精选纯音乐歌单，陪伴你的专注、休息与日常生活。',
-          primary: '开启试听',
-          secondary: '打开产品页',
+          primary: '下载',
+          secondary: '试听示例',
           hint: '向下滚动，先听听看。',
           scroll: '滚动'
+        },
+        download: {
+          close: '关闭',
+          caption: '用 iPhone 相机扫码下载应用。'
         },
         demos: {
           eyebrow: '试听',
@@ -436,6 +441,13 @@
     currentButton: null,
     currentStatus: 'idle'
   };
+  const homeDownloadState = {
+    root: null,
+    popover: null,
+    toggle: null,
+    closeButton: null,
+    open: false
+  };
 
   const scrollState = {
     raf: 0
@@ -473,6 +485,88 @@
         defaultTextCache.set(element, element.textContent ?? '');
       }
     });
+  }
+
+  function wireResponsiveNav() {
+    const header = document.querySelector('.site-header');
+    const nav = header?.querySelector('.site-nav');
+    const toggle = header?.querySelector('[data-site-menu-toggle]');
+    const panel = header?.querySelector('[data-site-menu]');
+    const panelNav = panel?.querySelector('[data-site-menu-nav]');
+
+    if (!header || !nav || !toggle || !panel || !panelNav) {
+      return;
+    }
+
+    if (!panelNav.childElementCount) {
+      panelNav.innerHTML = nav.innerHTML;
+    }
+
+    let open = false;
+    const navCollapseQuery = window.matchMedia('(max-width: 1149.98px)');
+
+    function closeMenu() {
+      open = false;
+      panel.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function setOpen(nextOpen) {
+      open = nextOpen;
+      panel.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+    }
+
+    function syncBreakpoint() {
+      if (!navCollapseQuery.matches) {
+        closeMenu();
+        return;
+      }
+
+      setOpen(open);
+    }
+
+    if ('addEventListener' in navCollapseQuery) {
+      navCollapseQuery.addEventListener('change', syncBreakpoint);
+    } else if ('addListener' in navCollapseQuery) {
+      navCollapseQuery.addListener(syncBreakpoint);
+    }
+
+    toggle.addEventListener('click', () => {
+      if (!navCollapseQuery.matches) {
+        return;
+      }
+
+      setOpen(!open);
+    });
+
+    panel.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('a')) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      if (!open || !(event.target instanceof Element)) {
+        return;
+      }
+
+      if (panel.contains(event.target) || toggle.contains(event.target)) {
+        return;
+      }
+
+      closeMenu();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && open) {
+        closeMenu();
+        toggle.focus();
+      }
+    });
+
+    captureDefaults();
+    syncBreakpoint();
   }
 
   function updateMeta(lang) {
@@ -584,6 +678,76 @@
     setHomeDemoButtonState(button, false);
     button.classList.remove('is-playing');
     setHomeDemoTrackProgress(button, 0);
+  }
+
+  function setHomeDownloadPopoverOpen(open, { focusTarget = null } = {}) {
+    if (!homeDownloadState.root || !homeDownloadState.popover || !homeDownloadState.toggle) {
+      return;
+    }
+
+    homeDownloadState.open = open;
+    homeDownloadState.popover.hidden = !open;
+    homeDownloadState.popover.setAttribute('aria-hidden', String(!open));
+    homeDownloadState.toggle.setAttribute('aria-expanded', String(open));
+
+    if (open) {
+      document.addEventListener('pointerdown', handleHomeDownloadOutsidePointerDown, true);
+      document.addEventListener('keydown', handleHomeDownloadKeydown);
+      if (focusTarget === 'close') {
+        homeDownloadState.closeButton?.focus({ preventScroll: true });
+      }
+      return;
+    }
+
+    document.removeEventListener('pointerdown', handleHomeDownloadOutsidePointerDown, true);
+    document.removeEventListener('keydown', handleHomeDownloadKeydown);
+
+    if (focusTarget === 'toggle') {
+      homeDownloadState.toggle.focus({ preventScroll: true });
+    }
+  }
+
+  function handleHomeDownloadOutsidePointerDown(event) {
+    if (!homeDownloadState.root || homeDownloadState.root.contains(event.target)) {
+      return;
+    }
+
+    setHomeDownloadPopoverOpen(false);
+  }
+
+  function handleHomeDownloadKeydown(event) {
+    if (event.key === 'Escape') {
+      setHomeDownloadPopoverOpen(false, { focusTarget: 'toggle' });
+    }
+  }
+
+  function wireHomeDownloadPopover() {
+    const root = document.querySelector('[data-download-cta]');
+    if (!root) {
+      return;
+    }
+
+    homeDownloadState.root = root;
+    homeDownloadState.popover = root.querySelector('[data-download-popover]');
+    homeDownloadState.toggle = root.querySelector('[data-download-toggle]');
+    homeDownloadState.closeButton = root.querySelector('[data-download-close]');
+
+    if (!homeDownloadState.popover || !homeDownloadState.toggle || !homeDownloadState.closeButton) {
+      return;
+    }
+
+    homeDownloadState.popover.hidden = true;
+    homeDownloadState.popover.setAttribute('aria-hidden', 'true');
+    homeDownloadState.toggle.setAttribute('aria-expanded', 'false');
+
+    homeDownloadState.toggle.addEventListener('click', () => {
+      const nextOpen = !homeDownloadState.open;
+      setHomeDownloadPopoverOpen(nextOpen, { focusTarget: nextOpen ? 'close' : 'toggle' });
+    });
+
+    homeDownloadState.closeButton.addEventListener('click', () => {
+      setHomeDownloadPopoverOpen(false, { focusTarget: 'toggle' });
+    });
   }
 
   function wireHomeDemoPlayer() {
@@ -786,12 +950,14 @@
 
   function init() {
     captureDefaults();
+    wireResponsiveNav();
     wireLanguageToggle();
     wireScrollEffects();
     wireFooterYear();
     observeRevealElements();
     if (page === 'index') {
       wireHomeVideoMotion();
+      wireHomeDownloadPopover();
     }
     applyLanguage(readStoredLanguage());
     if (page === 'index') {
