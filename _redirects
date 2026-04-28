@@ -1,2 +1,4 @@
-/terms /terms/index.html 200
-/terms/ /terms/index.html 200
+/agreement /agreement/index.html 200
+/agreement/ /agreement/index.html 200
+/terms /agreement 301
+/terms/ /agreement 301
